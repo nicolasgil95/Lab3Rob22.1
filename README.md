@@ -1,20 +1,14 @@
-# Lab 2: PX manipulation with ROS on python and matlab
-
+# Lab 3: PX inverse kinematics with ROS on python 
 By: Jhon Brandol Muñoz Romero and Nicolas Gil Rojas
 
-_We had a trouble doing the commits to this repo so all were made by Nicolas Gil using VS code but Jhon Muñoz participated in the creation of the scrips and the explanation of matlab code, he made pull request but I wasn't able to merge them._
-
 ## Abstract
-In this lab we try to manipulate the Phantom X robot using the keyboard of our laptop. Also we give a position to the robot using Matlab and get a representation of the current pose using the RVC toolbox.
+
 - - - 
-##  Cinematic analysis of the robot
-The first one, reference systems are assigned according to the DHstd convention. In this case, you can si the Root Phantom that is plotted with the tool in Matlab. 
+##  Workspace of the robot
+To get and know the workspace of the robot we used forward kinematics giving us a 2D view of many reachable points by the robot.
 
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/tXtr8yM/pp.jpg" alt="pp" border="0"></a>
+<a href="https://ibb.co/sVgrZWY"><img src="https://i.ibb.co/BCfR9nM/Workspace.png" alt="Workspace" border="0"></a>
 
-Then, there are the convention parameters of DHstd, and it is represented in the following table, where the letter q is variable.Therefore, the measurement is given in centimeters.
-
- <a href="https://imgbb.com/"><img src="https://i.ibb.co/482tP1q/para.png" alt="para" border="0"></a>
 
 ## How to use this repo
 Clone this repo onto your Catkin workspace. Also is needed Matlab with dynamixel messages.
