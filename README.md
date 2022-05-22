@@ -1,4 +1,4 @@
-# Lab 3: PX inverse kinematics with ROS on python 
+# Lab 3: Phantom X inverse kinematics with ROS on python 
 By: Jhon Brandol Muñoz Romero and Nicolas Gil Rojas
 
 ## Abstract
@@ -17,7 +17,7 @@ With the Phantom X robot connected into your system you have to identify de IDs 
 
 Compile the package using the following command in a terminal on catkin workspace
 
-`caktin build lab2rob22_1`
+`caktin build lab3rob22_1`
 
 Then, source bash 
 
@@ -25,17 +25,17 @@ Then, source bash
 
 After this is done and with no errors showed you will be ready to run de scripts.
 
-On the scripts folder there will be a python script named _KeyMove.py_ and 4 matlab scripts: *PX_Robot.m*, _matlabPub.m_, _matlabSub.m_ and _matlabConnectionROSnPX.m_.
+On the scripts folder there will be a python script named _PickNDrop.py_ and .
 
 # Python Script
 
 The python script can be run using the following commands, on one terminal run:
 
-`roslaunch lab2rob22_1 px_controllers.launch`
+`roslaunch lab3rob22_1 px_controllers.launch`
 
 on other sourced terminal run:
 
-`rosrun lab2rob22_1 KeyMove.py`
+`rosrun lab3rob22_1 PickNDrop.py`
 
 The first command wil enable the communication with the robot, the second one will launch the python script.
 

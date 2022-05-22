@@ -37,6 +37,14 @@ def moveart(command, art_ID, addr_name, ang, time):
         print(str(exc))
 
 def inv_kin(MTH):
+    a=1
+
+Izq=transl(0,35,15)*troty(pi/2)*trotx(-pi/2)
+Der=transl(0,-35,5)*trotz(pi/2)*troty(pi)
+PosIzq=Izq*transl(-30,0,0)
+PosDer=Der*transl(0,0,-35)
+front=transl(25,0,5)
+Posfront=front*transl(0,0,30)
 
 
 if __name__ == '__main__':
