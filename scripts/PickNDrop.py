@@ -36,39 +36,39 @@ def moveart(command, art_ID, addr_name, ang, time):
         print(str(exc))
 
 def inv_kin(MTH):
-    WristPos=MTH-(l[3]*MTH[0:4,2].reshape(4,1))
-    XYPos=np.sqrt(WristPos[0]*WristPos[0]+WristPos[1]*WristPos[1])
-    Z=WristPos[2,3]-l[0]
-    R=np.sqrt(WristPos[0,3]**2+WristPos[1,3]**2)
-    print(R)
-    print(Z)
-    num=R**2+Z**2-l[1]**2-l[2]**2
+    WristPos=MTH[0:3,3]-l[3]*MTH[0:3,2]
+    XYPos=np.sqrt(WristPos[0]**2+WristPos[1]**2)
+    Z=WristPos[2]-l[0]
+    R=np.sqrt(XYPos**2+Z**2)
+    num=R**2-l[1]**2-l[2]**2
     den=2*l[1]*l[2]
-    print(num)
-    print(den)
     theta3=np.arccos((num)/(den))
     theta2=np.arctan2(Z,R) + np.arctan2(l[2]*np.sin(theta3),l[1]+l[2]*np.cos(theta3))
     q[0]=np.arctan2(MTH[1,3],MTH[0,3])
     q[1]=-(np.pi/2-theta2)
     q[2]=-theta3
-    RP=np.matmul(rotz(q[0]),MTH[0:2,0:2])
-    pitch=np.atan2(RP[2,0],RP[0,0])
+    RP=rotz(q[0])@MTH[0:3,0:3]
+    pitch=np.arctan2(RP[2,0],RP[0,0])
     q[3]=pitch-q[1]-q[2]
     return q
 
-Izq=np.matmul(transl(0,35,15),troty(np.pi/2),trotx(-np.pi/2))
-Der=np.matmul(transl(0,-35,5),trotz(np.pi/2),troty(np.pi))
-PosIzq=np.matmul(Izq,transl(-30,0,0))
-PosDer=np.matmul(Der,transl(0,0,-35))
+#Izq=np.matmul(np.matmul(transl(0,35,15),troty(np.pi/2)),trotx(-np.pi/2))
+Izq=transl(0,15,15)@troty(np.pi/2)@trotx(-np.pi/2)
+Der=(transl(0,-18,0)@trotz(np.pi/2)@troty(np.pi))
+PosIzq=Izq@transl(-30,0,0)
+PosDer=(Der@transl(0,0,-35))
 front=transl(25,0,5)
-Posfront=np.matmul(front,transl(0,0,30))
+Posfront=(front@transl(0,0,30))
 
 if __name__ == '__main__':
-    sol=inv_kin(Izq)
+    sol=inv_kin(Der)
     print(sol)
+    PX.plot(sol[0:4])
+    while(1):
+        a=1
     #llevar a home
-    for i in range(len(motorID)):
-        moveart('', motorID[i], 'Goal_Position', Home[i], 0)
+    #for i in range(len(motorID)):
+        #moveart('', motorID[i], 'Goal_Position', Home[i], 0)
 
     #llevar a pos1
     #llevar a pos2
