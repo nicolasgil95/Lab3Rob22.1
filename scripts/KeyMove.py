@@ -1,19 +1,36 @@
 #!/usr/bin/env python
-from operator import le
+from re import X
+from turtle import distance
+from matplotlib.pyplot import pause
+import roboticstoolbox as rtb
+from spatialmath import *
+from spatialmath.base import *
+import numpy as np
 import rospy
 from std_msgs.msg import String
 from sensor_msgs.msg import JointState
 from dynamixel_workbench_msgs.srv import DynamixelCommand
-import termios, sys, tty
-import math
 
-TERMIOS=termios
+i=1
 
-artID=6
-HomeWaist=0
-HomeShoulder=0
-HomeElbow=0
-HomeWrist=0
+axe='x'
+dist=0.0
+
+motorID=np.array([1,2,3,4,5])
+Home=np.array([0,0,0,0,0])
+l = np.array([14.5, 10.7, 10.7, 9])
+qlims = np.array([[-3*np.pi/4, 3*np.pi/4],[-3*np.pi/4, 3*np.pi/4],[-3*np.pi/4, 3*np.pi/4],[-3*np.pi/4, 3*np.pi/4]])
+
+q=np.array([0.0, 0.0, 0.0, 0.0, 0.0])
+q_act=np.array([0.0, 0.0, 0.0, 0.0, 0.0])
+
+PX = rtb.DHRobot(
+    [rtb.RevoluteDH(alpha=np.pi/2, d=l[0], qlim=qlims[0,:]),
+    rtb.RevoluteDH(a=l[1], offset=np.pi/2, qlim=qlims[0,:]),
+    rtb.RevoluteDH(a=l[2], qlim=qlims[0,:]),
+    rtb.RevoluteDH(qlim=qlims[0,:])],
+    name="PhantomX")
+PX.tool = transl(l[3],0,0).dot(troty(np.pi/2).dot(trotz(-np.pi/2)))
 
 #Funcion para mover articulacion
 def moveart(command, art_ID, addr_name, ang, time):
@@ -27,90 +44,75 @@ def moveart(command, art_ID, addr_name, ang, time):
     except rospy.ServiceException as exc:
         print(str(exc))
 
-def getkey():
-    orig_settings = termios.tcgetattr(sys.stdin)
-    tty.setcbreak(sys.stdin)
-    x = 0
-    x=sys.stdin.read(1)[0]
-    return x
-
 def listener():
     rospy.init_node('joint_listener', anonymous=True)
-    rospy.Subscriber("/dynamixel_workbench/joint_states", jointState, callback)
-    rospy.spin()
+    rospy.Subscriber("/joint_states", JointState, callback)
+    #rospy.spin()
     
 def callback(data):
-    rospy.loginfo(data.position)
-    currentAng[0]=data.position[0]
-    currentAng[1]=data.position[1]
-    currentAng[2]=data.position[2]
-    currentAng[3]=data.position[3]
-    print(data.position)
+    #rospy.loginfo(data.position)
+    q_act[0]=data.position[0]
+    q_act[1]=data.position[1]
+    q_act[2]=data.position[2]
+    q_act[3]=data.position[3]
     
+def getMov():
+    global axe
+    axe=input("Which axe will move:\n")
+    if axe!='x'and axe!='y' and axe!='z':
+        print("Axe doesn't exist")
+        return
+    global dist
+    dist=float(input("How many cm travel: \n"))
+    print(f'transl{axe} {dist} cm')
+    return
 
-def nextArt(ID):
-    if ID==9:
-        ID=6
-    else:
-        ID+=1
-    return ID
+def inv_kin(MTH):
+    WristPos=MTH[0:3,3]-l[3]*MTH[0:3,2]
+    XYPos=np.sqrt(WristPos[0]**2+WristPos[1]**2)
+    Z=WristPos[2]-l[0]
+    R=np.sqrt(XYPos**2+Z**2)
+    num=R**2-l[1]**2-l[2]**2
+    den=2*l[1]*l[2]
+    theta3=np.arccos((num)/(den))
+    theta2=np.arctan2(Z,R) + np.arctan2(l[2]*np.sin(theta3),l[1]+l[2]*np.cos(theta3))
+    q[0]=np.arctan2(MTH[1,3],MTH[0,3])
+    q[1]=-(np.pi/2-theta2)
+    q[2]=-theta3
+    RP=rotz(q[0])@MTH[0:3,0:3]
+    pitch=np.arctan2(RP[2,0],RP[0,0])
+    q[3]=pitch-q[1]-q[2]
+    return q
 
-def prevArt(ID):
-    if ID==6:
-        ID=9
-    else:
-        ID-=1
-    return ID
 
-currentAng=[]
-
-i=1
 if __name__ == '__main__':
-    moveart('', 6, 'Torque_Limit', 3*1024/4-1, 0)
-    moveart('', 7, 'Torque_Limit', 2*1024/3-1, 0)
-    moveart('', 8, 'Torque_Limit', 1024/2-1, 0)
-    moveart('', 9, 'Torque_Limit', 1024/3-1, 0)
-    while i==1:
-        Key=getkey()
-        if Key==chr(72) or Key==chr(104): #Tecla H mueve articulaciones a HOME
-                moveart('', 6, 'Goal_Position', HomeWaist, 0.5)
-                moveart('', 7, 'Goal_Position', HomeShoulder, 0.5)
-                moveart('', 8, 'Goal_Position', HomeElbow, 0.5)
-                moveart('', 9, 'Goal_Position', HomeWrist, 0.5)
-        elif Key==chr(87) or Key==chr(119): #Tecla W mueve entre articulacion
-            artID=nextArt(artID)
-        elif Key==chr(83) or Key==chr(115): #Tecla S mueve entre articulacion
-            artID=prevArt(artID)
-        elif Key==chr(65) or Key==chr(97): #Tecla A mueve articulacion a izq
-            try:
-                moveart('', artID, 'Goal_Position', -90, 0.1)
-            except rospy.ROSInterruptException:
-                pass
-        elif Key==chr(68) or Key==chr(100): #Tecla D mueve articulacion a der
-            try:
-                moveart('', artID, 'Goal_Position', 90, 0.1)
-            except rospy.ROSInterruptException:
-                pass
-        elif Key==chr(82) or Key==chr(114): #Tecla R mueve articulacion a home
-            if artID==6:
-                try:
-                    moveart('', 6, 'Goal_Position', HomeWaist, 0)
-                except rospy.ROSInterruptException:
-                    pass
-            elif artID==7:
-                try:
-                    moveart('', 7, 'Goal_Position', HomeShoulder, 0)
-                except rospy.ROSInterruptException:
-                    pass
-            elif artID==8:
-                try:
-                    moveart('', 8, 'Goal_Position', HomeElbow, 0)
-                except rospy.ROSInterruptException:
-                    pass
-            elif artID==9:
-                try:
-                    moveart('', 9, 'Goal_Position', HomeWrist, 0)
-                except rospy.ROSInterruptException:
-                    pass
-        elif Key==chr(27): #ESC
-            sys.exit()
+    #obtener estado actual
+    listener()
+    pause(1)
+    #obtener pose actual
+    MTH_act=PX.fkine(q_act[0:4])
+    MTH_dest=MTH_act
+    #print(MTH_act)
+    while i==1:    
+        #obtener eje y distancia de mov
+        getMov()
+        #Calcular MTH siguiente
+        #print(MTH_act)
+        if axe=='x':
+            MTH_dest=SE3(transl(dist,0,0))@MTH_dest
+        elif axe=='y':
+            MTH_dest=SE3(transl(0,dist,0))@MTH_dest
+        elif axe=='z':
+            MTH_dest=SE3(transl(0,0,dist))@MTH_dest
+        #print(MTH_act)
+        #print(MTH_dest)
+        #Calcular MTH intermedias, se calculan cada 5mm
+        steps=rtb.ctraj(MTH_act,MTH_dest,int(dist/0.5))
+        print(type(np.array(steps)))
+        #Para cada MTH se calcula cinematica inversa y se mueve brazo
+        for index in range(len(steps)):
+            q=inv_kin(np.array(steps[index]))
+            for index1 in range(len(motorID)):
+                moveart('', motorID[index1], 'Goal_Position', q[index1], 0)
+        #Se actualiza MTH actual
+        MTH_act=MTH_dest

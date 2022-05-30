@@ -57,7 +57,8 @@ include_directories(
 # )
 
 catkin_install_python(PROGRAMS
-  scripts/PickNDrop.py 
+  scripts/PickNDrop.py
+  KeyMove.py 
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
