@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from matplotlib.pyplot import pause
 import roboticstoolbox as rtb
 from spatialmath import *
 from spatialmath.base import *
@@ -14,7 +15,7 @@ Home=np.array([0,0,0,0,0])
 l = np.array([14.5, 10.7, 10.7, 9])
 qlims = np.array([[-3*np.pi/4, 3*np.pi/4],[-3*np.pi/4, 3*np.pi/4],[-3*np.pi/4, 3*np.pi/4],[-3*np.pi/4, 3*np.pi/4]])
 
-q=np.array([0, 0, 0, 0, 0])
+q=np.array([0.0, 0.0, 0.0, 0.0, 0.0])
 
 PX = rtb.DHRobot(
     [rtb.RevoluteDH(alpha=np.pi/2, d=l[0], qlim=qlims[0,:]),
@@ -27,7 +28,7 @@ PX.tool = transl(l[3],0,0).dot(troty(np.pi/2).dot(trotz(-np.pi/2)))
 def moveart(command, art_ID, addr_name, ang, time):
     rospy.wait_for_service('dynamixel_workbench/dynamixel_command')
     try:
-        value=int((ang+135)/(270/1024)) #conversion de angulos Deg a bits
+        value=int((ang+135)*np.pi/(180*270/1024)) #conversion de angulos Deg a bits
         dynamixel_command = rospy.ServiceProxy('/dynamixel_workbench/dynamixel_command', DynamixelCommand)
         result = dynamixel_command(command,art_ID,addr_name,value)
         rospy.sleep(time)
@@ -52,7 +53,7 @@ def inv_kin(MTH):
     q[3]=pitch-q[1]-q[2]
     return q
 
-#Izq=np.matmul(np.matmul(transl(0,35,15),troty(np.pi/2)),trotx(-np.pi/2))
+HOME=PX.fkine(Home[0:4])
 Izq=transl(0,15,15)@troty(np.pi/2)@trotx(-np.pi/2)
 Der=(transl(0,-18,0)@trotz(np.pi/2)@troty(np.pi))
 PosIzq=Izq@transl(-30,0,0)
@@ -60,20 +61,40 @@ PosDer=(Der@transl(0,0,-35))
 front=transl(25,0,5)
 Posfront=(front@transl(0,0,30))
 
-if __name__ == '__main__':
-    sol=inv_kin(Der)
-    print(sol)
-    PX.plot(sol[0:4])
-    while(1):
-        a=1
-    #llevar a home
-    #for i in range(len(motorID)):
-        #moveart('', motorID[i], 'Goal_Position', Home[i], 0)
+#Home-Posfront-PosIzq-Izq-PosIzq-Posfront-front-Posfront-PosDer-Der-PosDer-Posfront-Front-Posfront-Home
 
+
+if __name__ == '__main__':
+    #llevar a home
+    for i in range(len(motorID)):
+        moveart('', motorID[i], 'Goal_Position', Home[i], 0)
     #llevar a pos1
+    sol=inv_kin(Izq)
+    print(sol)
+    for i in range(len(motorID)):
+        moveart('', motorID[i], 'Goal_Position', sol[i], 0)
     #llevar a pos2
+    sol=inv_kin(PosIzq)
+    print(sol)
+    for i in range(len(motorID)):
+        moveart('', motorID[i], 'Goal_Position', sol[i], 0)
     #llevar a pos3
+    sol=inv_kin(Izq)
+    print(sol)
+    for i in range(len(motorID)):
+        moveart('', motorID[i], 'Goal_Position', sol[i], 0)
     #llevar a pos4
-    #llevar a pos3
+    sol=inv_kin(Izq)
+    print(sol)
+    for i in range(len(motorID)):
+        moveart('', motorID[i], 'Goal_Position', sol[i], 0)
     #llevar a pos5
+    sol=inv_kin(Izq)
+    print(sol)
+    for i in range(len(motorID)):
+        moveart('', motorID[i], 'Goal_Position', sol[i], 0)
     #llevar a pos6
+    sol=inv_kin(Izq)
+    print(sol)
+    for i in range(len(motorID)):
+        moveart('', motorID[i], 'Goal_Position', sol[i], 0)
