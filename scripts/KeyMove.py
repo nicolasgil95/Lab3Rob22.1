@@ -113,6 +113,6 @@ if __name__ == '__main__':
         for index in range(len(steps)):
             q=inv_kin(np.array(steps[index]))
             for index1 in range(len(motorID)):
-                moveart('', motorID[index1], 'Goal_Position', q[index1], 0)
+                moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
         #Se actualiza MTH actual
         MTH_act=MTH_dest
