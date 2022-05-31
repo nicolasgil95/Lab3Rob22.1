@@ -46,7 +46,7 @@ def moveart(command, art_ID, addr_name, ang, time):
 
 def listener():
     rospy.init_node('joint_listener', anonymous=True)
-    rospy.Subscriber("/joint_states", JointState, callback)
+    rospy.Subscriber("/dynamixel_workbench/joint_states", JointState, callback)
     #rospy.spin()
     
 def callback(data):
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     #obtener pose actual
     MTH_act=PX.fkine(q_act[0:4])
     MTH_dest=MTH_act
-    #print(MTH_act)
+    print(MTH_act)
     while i==1:    
         #obtener eje y distancia de mov
         getMov()
@@ -105,10 +105,10 @@ if __name__ == '__main__':
         elif axe=='z':
             MTH_dest=SE3(transl(0,0,dist))@MTH_dest
         #print(MTH_act)
-        #print(MTH_dest)
+        print(MTH_dest)
         #Calcular MTH intermedias, se calculan cada 5mm
-        steps=rtb.ctraj(MTH_act,MTH_dest,int(dist/0.5))
-        print(type(np.array(steps)))
+        steps=rtb.ctraj(MTH_act,MTH_dest,int(abs(dist)/0.5))
+        #print(type(np.array(steps)))
         #Para cada MTH se calcula cinematica inversa y se mueve brazo
         for index in range(len(steps)):
             q=inv_kin(np.array(steps[index]))

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from matplotlib.pyplot import pause
 import roboticstoolbox as rtb
 from spatialmath import *
 from spatialmath.base import *
