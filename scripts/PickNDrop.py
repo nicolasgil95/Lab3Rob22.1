@@ -37,20 +37,27 @@ def moveart(command, art_ID, addr_name, ang, time):
         print(str(exc))
 
 def inv_kin(MTH):
-    WristPos=MTH[0:3,3]-l[3]*MTH[0:3,2]
-    XYPos=np.sqrt(WristPos[0]**2+WristPos[1]**2)
-    Z=WristPos[2]-l[0]
-    R=np.sqrt(XYPos**2+Z**2)
-    num=R**2-l[1]**2-l[2]**2
-    den=2*l[1]*l[2]
-    theta3=np.arccos((num)/(den))
-    theta2=np.arctan2(Z,R) + np.arctan2(l[2]*np.sin(theta3),l[1]+l[2]*np.cos(theta3))
-    q[0]=np.arctan2(MTH[1,3],MTH[0,3])
-    q[1]=-(np.pi/2-theta2)
-    q[2]=-theta3
-    RP=rotz(q[0])@MTH[0:3,0:3]
-    pitch=np.arctan2(RP[2,0],RP[0,0])
-    q[3]=pitch-q[1]-q[2]
+       #WristPos=MTH[0:3,3]-l[3]*MTH[0:3,2]
+    #XYPos=np.sqrt(WristPos[0]**2+WristPos[1]**2)
+    #Z=WristPos[2]-l[0]
+    #R=np.sqrt(XYPos**2+Z**2)
+    #theta3=np.arccos((num)/(den))
+    #theta2=np.arctan2(Z,R) + np.arctan2(l[2]*np.sin(theta3),l[1]+l[2]*np.cos(theta3))
+    np.set_printoptions(suppress=True)
+    T = MTH
+    Tw = T-(l[3]*T[0:4,2]).reshape(4,1)
+    q0 = np.arctan2(Tw[1,3],Tw[0,3])
+    # Solucion 2R
+    h = Tw[2,3] - l[0]
+    r = np.sqrt(Tw[0,3]**2 + Tw[1,3]**2)
+    theta3 = np.arccos((r**2+h**2-l[1]**2-l[2]**2)/(2*l[1]*l[2]))
+    theta2 = np.arctan2(h,r) + np.arctan2(l[2]*np.sin(theta3),l[1]+l[2]*np.cos(theta3))
+    q1=-(np.pi/2-theta2)
+    q2=-theta3
+    Rp = (rotz(q1).T).dot(T[0:3,0:3])
+    pitch = np.arctan2(Rp[2,0],Rp[0,0])
+    q3=pitch-q1-q2
+    q = np.array([q0,q1,q2,q3])
     return q
 
 HOME=PX.fkine(Home[0:4])
