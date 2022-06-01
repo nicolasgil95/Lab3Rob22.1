@@ -72,14 +72,15 @@ def inv_kin(MTH):
     XYPos=np.sqrt(WristPos[0]**2+WristPos[1]**2)
     Z=WristPos[2]-l[0]
     R=np.sqrt(XYPos**2+Z**2)
-    num=R**2-l[1]**2-l[2]**2
+    num=R**2+Z**2-l[1]**2-l[2]**2
     den=2*l[1]*l[2]
     theta3=np.arccos((num)/(den))
     theta2=np.arctan2(Z,R) + np.arctan2(l[2]*np.sin(theta3),l[1]+l[2]*np.cos(theta3))
     q[0]=np.arctan2(MTH[1,3],MTH[0,3])
     q[1]=-(np.pi/2-theta2)
     q[2]=-theta3
-    RP=rotz(q[0])@MTH[0:3,0:3]
+    aux=np.array(rotz(q[0]))
+    RP=aux.transpose()@MTH[0:3,0:3]
     pitch=np.arctan2(RP[2,0],RP[0,0])
     q[3]=pitch-q[1]-q[2]
     return q
