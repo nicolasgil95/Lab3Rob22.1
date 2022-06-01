@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from cmath import pi
+from matplotlib.pyplot import pause
 import roboticstoolbox as rtb
 from spatialmath import *
 from spatialmath.base import *
@@ -54,19 +56,19 @@ def inv_kin(MTH):
     q[3]=pitch-q[1]-q[2]
     return q
 
-Izq=transl(0,15,5)@trotz(np.pi/2)@trotx(np.pi)
-Der=(transl(0,-15,5)@trotz(np.pi/2)@troty(np.pi))
+Izq=transl(0,10,3.5)@trotz(np.pi/2)@troty(np.pi)
+Der=(transl(0,-10,3.5)@trotz(-np.pi/2)@troty(np.pi))
 PosIzq=Izq@transl(0,0,-10)
 PosDer=(Der@transl(0,0,-10))
-front=transl(15,0,5)@troty(np.pi)
-Posfront=(front@transl(0,0,-10))
-
+front=transl(10,0,6)@troty(np.pi)
+Posfront=(front@transl(0,0,-7.5))
+pose3=(transl(10,10,13.5)@troty(np.pi)@trotz(-np.pi/4))
 #Home-Posfront-PosIzq-Izq-PosIzq-Posfront-front-Posfront-PosDer-Der-PosDer-Posfront-Front-Posfront-Home
 
 if __name__ == '__main__':
     for index in range(len(motorID)):
         moveart('', motorID[index], 'Goal_Position', Home[index], 0)
-    moveart('', motorID[4], 'Goal_Position', 512, 0)#abrir herramienta
+    moveart('', motorID[4], 'Goal_Position', 0, 0)#abrir herramienta
     MTH_act=PX.fkine(Home[0:4])
     #print('Izq')
     #print(np.rad2deg(inv_kin(Izq)))
@@ -80,131 +82,70 @@ if __name__ == '__main__':
     #print(np.rad2deg(inv_kin(front)))
     #print('Posfront')
     #print(np.rad2deg(inv_kin(Posfront)))
-
+    pause(1)
+    
     q=inv_kin(np.array(Posfront))
+    for index1 in range(len(motorID)):
+        moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
+    MTH_act=PX.fkine(q[0:4])
+
+    q=inv_kin(np.array(PosIzq))
     MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
+    steps=rtb.ctraj(MTH_act,MTH_dest,15)
     for index in range(len(steps)):
             q=inv_kin(np.array(steps[index]))
             for index1 in range(len(motorID)):
                 moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
     MTH_act=MTH_dest
+
+    q=inv_kin(np.array(Izq))
+    MTH_dest=PX.fkine(q[0:4])
+    steps=rtb.ctraj(MTH_act,MTH_dest,15)
+    for index in range(len(steps)):
+            q=inv_kin(np.array(steps[index]))
+            for index1 in range(len(motorID)):
+                moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
+    MTH_act=MTH_dest
+    
+    moveart('', motorID[4], 'Goal_Position', 12, 0) #cerrar herramienta
     
     q=inv_kin(np.array(PosIzq))
     MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
+    steps=rtb.ctraj(MTH_act,MTH_dest,15)
     for index in range(len(steps)):
             q=inv_kin(np.array(steps[index]))
+            q[4]=12*np.pi/180
+            for index1 in range(len(motorID)):
+                moveart('', motorID[index1], 'Goal_Position',  180*q[index1]/np.pi, 0)
+    MTH_act=MTH_dest
+    
+    q=inv_kin(np.array(Posfront))
+    MTH_dest=PX.fkine(q[0:4])
+    steps=rtb.ctraj(MTH_act,MTH_dest,15)
+    for index in range(len(steps)):
+            q=inv_kin(np.array(steps[index]))
+            q[4]=12*np.pi/180
             for index1 in range(len(motorID)):
                 moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
     MTH_act=MTH_dest
-    
-    q=inv_kin(np.array(Izq))
+
+    q=inv_kin(np.array(front))
     MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
+    steps=rtb.ctraj(MTH_act,MTH_dest,15)
     for index in range(len(steps)):
             q=inv_kin(np.array(steps[index]))
+            q[4]=12*np.pi/180
             for index1 in range(len(motorID)):
                 moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
     MTH_act=MTH_dest
 
     moveart('', motorID[4], 'Goal_Position', 0, 0) #cerrar herramienta
-    
-    q=inv_kin(np.array(PosIzq))
-    MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
-    for index in range(len(steps)):
-            q=inv_kin(np.array(steps[index]))
-            for index1 in range(len(motorID)):
-                moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
-    MTH_act=MTH_dest
-    
-    q=inv_kin(np.array(Posfront))
-    MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
-    for index in range(len(steps)):
-            q=inv_kin(np.array(steps[index]))
-            for index1 in range(len(motorID)):
-                moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
-    MTH_act=MTH_dest
-    
-    q=inv_kin(np.array(front))
-    MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
-    for index in range(len(steps)):
-            q=inv_kin(np.array(steps[index]))
-            for index1 in range(len(motorID)):
-                moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
-    MTH_act=MTH_dest
-    
-    moveart('', motorID[4], 'Goal_Position', 512, 0) #abrir herramienta
 
     q=inv_kin(np.array(Posfront))
     MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
+    steps=rtb.ctraj(MTH_act,MTH_dest,15)
     for index in range(len(steps)):
             q=inv_kin(np.array(steps[index]))
             for index1 in range(len(motorID)):
                 moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
     MTH_act=MTH_dest
-    
-    q=inv_kin(np.array(PosDer))
-    MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
-    for index in range(len(steps)):
-            q=inv_kin(np.array(steps[index]))
-            for index1 in range(len(motorID)):
-                moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
-    MTH_act=MTH_dest
-    
-    q=inv_kin(np.array(Der))
-    MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
-    for index in range(len(steps)):
-            q=inv_kin(np.array(steps[index]))
-            for index1 in range(len(motorID)):
-                moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
-    MTH_act=MTH_dest
-    
-    moveart('', motorID[4], 'Goal_Position', 300, 0) #cerrar herramienta
-
-    q=inv_kin(np.array(PosDer))
-    MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
-    for index in range(len(steps)):
-            q=inv_kin(np.array(steps[index]))
-            for index1 in range(len(motorID)):
-                moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
-    MTH_act=MTH_dest
-    
-    q=inv_kin(np.array(Posfront))
-    MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
-    for index in range(len(steps)):
-            q=inv_kin(np.array(steps[index]))
-            for index1 in range(len(motorID)):
-                moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
-    MTH_act=MTH_dest
-    
-    q=inv_kin(np.array(front))
-    MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
-    for index in range(len(steps)):
-            q=inv_kin(np.array(steps[index]))
-            for index1 in range(len(motorID)):
-                moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
-    MTH_act=MTH_dest
-
-    moveart('', motorID[4], 'Goal_Position', 512, 0) #abrir herramienta
-    
-    q=inv_kin(np.array(Posfront))
-    MTH_dest=PX.fkine(q[0:4])
-    steps=rtb.ctraj(MTH_act,MTH_dest,5)
-    for index in range(len(steps)):
-            q=inv_kin(np.array(steps[index]))
-            for index1 in range(len(motorID)):
-                moveart('', motorID[index1], 'Goal_Position', 180*q[index1]/np.pi, 0)
-    
-    for index in range(len(motorID)):
-        moveart('', motorID[index], 'Goal_Position', Home[index], 0)
-    
