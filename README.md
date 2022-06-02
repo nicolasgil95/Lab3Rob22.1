@@ -105,6 +105,15 @@ Again, after running this script the terminal will be bugged and won't show any 
 
 - - -
 
+### Using the KeyMove script
+
+This script uses the same function to get the inverse kinematics of the robot, always gives an elbow up configuration. Also, we use the Joint_State topic to get the current position of the arm. After that, using the forward kinematics function of the toolbox we get the corresponding MTH for that pose. Then, the user inputs the axis of movement and the distance, _x_, _y_ and _z_ axis are available and positive and negative values are accepted.
+
+Once the axis and distance are defined, we add the distance value in the corresponding axis to the MTH of the current pose calculated previously. With the start and end pose MTHs is used the toolbox _ctraj_ function to get the intermediate pose MTHs, this arrays are calculated every 0.5 cm. This new MTHs will be the input for our inverse kinematics *inv_kin* function. Knowing the joint values for each step we send them to the motors.
+
+[Here](https://www.youtube.com/watch?v=9BKicWuFVmo) you can see the results of the script run. 
+
+---
 
 ## Conclusions
 - In the first video, it is observed that the robot picks up part number two perfectly, but at the end of the route when it has to drop it, it tends to have problems.
