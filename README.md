@@ -33,12 +33,11 @@ On the scripts folder there will be a python script named _PickNDrop.py_ and _Ke
 
 # Pick and Place Script
 
-This is the __[link](https://youtube.com/shorts/pO0-6QPsQTQ)__ to watch the first video:
-This is the __[link](https://youtube.com/shorts/02OXB1aoj3E
+This is the __[link](https://youtube.com/shorts/pO0-6QPsQTQ)__ to watch the first video and
+this is the __[link](https://youtube.com/shorts/02OXB1aoj3E
 )__ to watch the second video:
 The objective is to implement a Pick And Place application with the Phantom X robot, which consists
-in the following. 
-The robot must take the type 1 piece that is on its right and place it in front.
+in the following. Then,the robot must take the type 1 piece that is on its right and place it in front.
 #Restrictions:
 
 The paths must be of the pick and place type, that is, rectangular paths, movements
@@ -126,5 +125,5 @@ Additionally, we can watch another position about the tool of work
 - - -
 ## Conclusions
 - In the first video, it is observed that the robot picks up part number two perfectly, but at the end of the route when it has to drop it, it tends to have problems.
-- 
+- In the second video, it is observed that the robot cannot throw part number two, since the diameter of this part is greater than the limit diameter that the robot tool reaches
 
