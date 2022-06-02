@@ -60,7 +60,7 @@ After this you should be able to control the robot using you laptop's keyboard:
 
 Also, if you run the next command in other terminal you will visualize the robot in rviz:
 
-`roslaunch lab2rob22_1 px_rviz_dyna.launch`
+`roslaunch lab3rob22_1 px_rviz_dyna.launch`
 
 This is how it'll see on your pc's screen
 
