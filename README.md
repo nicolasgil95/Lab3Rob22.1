@@ -115,7 +115,7 @@ Once the axis and distance are defined, we add the distance value in the corresp
 
 In the image you can see the output of the script, where it gets the current MTH and then ask for the axis of movement and the distance to move, the prints the destination MTH and starts to execute the movements on the robot. 
 
-<a href="https://ibb.co/Y8h6yjV"><img src="https://i.ibb.co/QnMZCmx/PXworkspace.png" alt="PXworkspace" border="0"></a><a href="https://ibb.co/VDxbbkv"><img src="https://i.ibb.co/d6tXXHQ/KeyMove.png" alt="KeyMove" border="0"></a>
+<a href="https://ibb.co/VDxbbkv"><img src="https://i.ibb.co/d6tXXHQ/KeyMove.png" alt="KeyMove" border="0"></a>
 
 [Here](https://www.youtube.com/watch?v=9BKicWuFVmo) you can see the results of the script run. 
 
