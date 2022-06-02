@@ -56,10 +56,6 @@ where T0 and T1 are vectors of the first position that the robot performs, these
 
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/bFGKf2f/Screenshot-from-2022-06-01-21-54-46.png" alt="Screenshot-from-2022-06-01-21-54-46" border="0"></a>
 
-In the following image, you can see the Homogeneous Transformation Matrices for each point of the robot path.
-
-
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/ysqRqcG/Screenshot-from-2022-06-01-22-50-36.png" alt="Screenshot-from-2022-06-01-22-50-36" border="0"></a>
 
 
 This is the __[link](https://youtu.be/9BKicWuFVmo)__ to watch the video:
@@ -128,6 +124,6 @@ In the image you can see the output of the script, where it gets the current MTH
 ## Conclusions
 - The results of our inverse kinematics function depends on the model we made of the robot, so, as there could be some error on the lenghts of each link the function won't give the correct angles for the actual robot.
 - In the first video, it is observed that the robot picks up part number two perfectly, but at the end of the route when it has to drop it, it tends to have problems.
-- In the second video, it is observed that the robot cannot throw part number two, since the diameter of this part is greater than the limit diameter that the robot tool reaches
+- In the second video, it is observed that the robot cannot drop part number two, since the diameter of this part is greater than the limit diameter that the robot tool reaches
 - While writing this file we realiced that, for straight moves on any axis the tool MTH have to suffer a rotation as it will always be aligned to the waist motor position, luckly, for our small test movements it didn't seem to disturb but for bigger moves it should. 
-
+- While using all the torque for the motors, and doing a small amount of steps between points, for example 3 in some of the Pick and Place application, the arm will have many inertia and the movement won't be soft and steady, meanwhile, when the steps are higher, instead of 3 we test with even 25, the movement will be more precise and beautyfull but will take longer.
