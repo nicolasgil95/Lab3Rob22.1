@@ -4,11 +4,20 @@ By: Jhon Brandol Muñoz Romero and Nicolas Gil Rojas
 ## Abstract
 
 - - - 
-##  Workspace of the robot
+##  Workspace of the robot - MATLAB + Toolbox
+
 To get and know the workspace of the robot we used forward kinematics giving us a 2D view of many reachable points by the robot.
 
 <a href="https://ibb.co/sVgrZWY"><img src="https://i.ibb.co/BCfR9nM/Workspace.png" alt="Workspace" border="0"></a>
 
+## Analysis:
+-Knowing that the Phantom X robot has 4 DOFs, of which 3 correspond to position, the remaining DOF
+provides an independent measure for an orientation angle (assume orientation at fixed angles).
+What orientation angle is it?
+
+-How many possible solutions exist for the inverse kinematics of the Phantom X manipulator?
+
+-See what the dexterous space of a manipulator consists of.
 
 ## How to use this repo
 Clone this repo onto your Catkin workspace. Also is needed Matlab with dynamixel messages.
@@ -77,11 +86,12 @@ Again, after running this script the terminal will be bugged and won't show any 
 
 - - -
 
-### Using the MATLAB script
-This is the [link](https://youtu.be/wtryydCzOSE) to watch the video:
+### ROS - Pick and place application:
+The objective is to implement a Pick And Place application with the Phantom X robot, which consists
+in the following. 
+The robot must take the type 1 piece that is on its right and place it in front.
 
-
-
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/nf59ZPk/Screenshot-from-2022-06-01-20-59-24.png" alt="Screenshot-from-2022-06-01-20-59-24" border="0"></a>
 
 - - -
 ## Conclusions
