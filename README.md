@@ -61,7 +61,7 @@ In the following image, you can see  Matrices for each point of the robot path.
 
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/ysqRqcG/Screenshot-from-2022-06-01-22-50-36.png" alt="Screenshot-from-2022-06-01-22-50-36" border="0"></a>
 
-First, the robot is brought home where all joints have a value of zero. Then, a sequence is made with a series of functions.
+First, the robot is brought home where all joints have a value of zero. Then, a sequence is made with a series of functions,where the value for each joint is calculated, and this is taken to the function that will move the robot's motors.
 
 <a href="https://ibb.co/bWVQTTB"><img src="https://i.ibb.co/PmyFKKh/Screenshot-from-2022-06-01-23-01-49.png" alt="Screenshot-from-2022-06-01-23-01-49" border="0"></a>
 
