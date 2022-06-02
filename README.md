@@ -45,7 +45,16 @@ vertical to go up and down, and horizontal movement to move.
 
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/nf59ZPk/Screenshot-from-2022-06-01-20-59-24.png" alt="Screenshot-from-2022-06-01-20-59-24" border="0"></a>
 
+To begin with, the calculations are made to locate the homogeneous transformation matrices for each point of the trajectory that the robot will make. Therefore, it can be seen in the following image.
+
 <a href="https://ibb.co/m4N3b89"><img src="https://i.ibb.co/VTwsJmg/FramePos.png" alt="FramePos" border="0"></a>
+
+Then, the trajectory is plotted with the function `rtb.jtraj(T0, T1, 50)`
+
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/bFGKf2f/Screenshot-from-2022-06-01-21-54-46.png" alt="Screenshot-from-2022-06-01-21-54-46" border="0"></a>
+
+
 
 This is the __[link](https://youtu.be/9BKicWuFVmo)__ to watch the video:
 The python script can be run using the following commands, on one terminal run:
@@ -96,33 +105,7 @@ Again, after running this script the terminal will be bugged and won't show any 
 
 - - -
 
-### Using the MATLAB script
-This is the [link](https://youtu.be/wtryydCzOSE) to watch the video:
 
-
-First of all, for using both of the scripts you will need to start a ROS master node To do that we need two terminal sessions. 
-
-We use the "link" function of robotic toolbox 
-
-<a href="https://ibb.co/k8rHtFh"><img src="https://i.ibb.co/BZ7z9Rg/M1.png" alt="M1" border="0"></a>
-
-On the other hand, Ros and the topic have been connected. Given the above, it calls you the services and the messages to make the robot work.
-
-<a href="https://ibb.co/YpQpRsh"><img src="https://i.ibb.co/NZCZVBK/M2.png" alt="M2" border="0"></a>
-
-Robot at home
-
-<a href="https://ibb.co/KjLkTC2"><img src="https://i.ibb.co/nsnvxh7/H.jpg" alt="H" border="0"></a>
-
-You can see some of the robot configurations in the next image
-
-<a href="https://ibb.co/4pyNcKp"><img src="https://i.ibb.co/qpG1z7p/f1.jpg" alt="f1" border="0"></a>
-
-Additionally, we can watch another position about the tool of work 
-
-<a href="https://ibb.co/VYHPFTV"><img src="https://i.ibb.co/Mk83z7n/f2.jpg" alt="f2" border="0"></a>
-
-- - -
 ## Conclusions
 - In the first video, it is observed that the robot picks up part number two perfectly, but at the end of the route when it has to drop it, it tends to have problems.
 - In the second video, it is observed that the robot cannot throw part number two, since the diameter of this part is greater than the limit diameter that the robot tool reaches
