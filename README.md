@@ -38,6 +38,7 @@ On the scripts folder there will be a python script named _PickNDrop.py_ and .
 
 # Python Script
 
+This is the __[link](https://youtu.be/9BKicWuFVmo)__ to watch the video:
 The python script can be run using the following commands, on one terminal run:
 
 `roslaunch lab3rob22_1 px_controllers.launch`
