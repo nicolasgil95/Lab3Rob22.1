@@ -14,9 +14,10 @@ Also, we know there are some functions on the Peter Corke toolbox to get the inv
 The dexterous workspace is where the tool can get, for example, in this Phantom X robot the tool _Approach_ axis will always be aligned with the first motor angle.
 
 ## How to use this repo
-Clone this repo onto your Catkin workspace. Also is needed Matlab with dynamixel messages.
 
-With the Phantom X robot connected into your system you have to identify de IDs of the motors and modify them on the _config/joints.yaml_ file. In our case our robot had the ID from 6 to 10.
+Clone this repo onto your Catkin workspace.
+
+With the Phantom X robot connected into your system you have to identify de IDs of the motors and modify them on the _config/joints.yaml_ file. In our case our robot had the ID from 1 to 5.
 
 Compile the package using the following command in a terminal on catkin workspace
 
@@ -28,7 +29,7 @@ Then, source bash
 
 After this is done and with no errors showed you will be ready to run de scripts.
 
-On the scripts folder there will be a python script named _PickNDrop.py_ and .
+On the scripts folder there will be a python script named _PickNDrop.py_ and _KeyMove.py_.
 
 # Pick and Place Script
 
