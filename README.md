@@ -81,27 +81,7 @@ Again, after running this script the terminal will be bugged and won't show any 
 This is the [link](https://youtu.be/wtryydCzOSE) to watch the video:
 
 
-First of all, for using both of the scripts you will need to start a ROS master node To do that we need two terminal sessions. 
 
-We use the "link" function of robotic toolbox 
-
-<a href="https://ibb.co/k8rHtFh"><img src="https://i.ibb.co/BZ7z9Rg/M1.png" alt="M1" border="0"></a>
-
-On the other hand, Ros and the topic have been connected. Given the above, it calls you the services and the messages to make the robot work.
-
-<a href="https://ibb.co/YpQpRsh"><img src="https://i.ibb.co/NZCZVBK/M2.png" alt="M2" border="0"></a>
-
-Robot at home
-
-<a href="https://ibb.co/KjLkTC2"><img src="https://i.ibb.co/nsnvxh7/H.jpg" alt="H" border="0"></a>
-
-You can see some of the robot configurations in the next image
-
-<a href="https://ibb.co/4pyNcKp"><img src="https://i.ibb.co/qpG1z7p/f1.jpg" alt="f1" border="0"></a>
-
-Additionally, we can watch another position about the tool of work 
-
-<a href="https://ibb.co/VYHPFTV"><img src="https://i.ibb.co/Mk83z7n/f2.jpg" alt="f2" border="0"></a>
 
 - - -
 ## Conclusions
