@@ -7,11 +7,13 @@ In this lab we learn and use inverse kinematics to move the Phantom X robot doin
 ##  Workspace of the robot
 To get and know the workspace of the robot we used forward kinematics giving us a 2D view of many reachable points by the robot.
 
-<a href="https://ibb.co/6DW5vbQ"><img src="https://i.ibb.co/7r1FgVh/Workspace.png" alt="Workspace" border="0"></a>
+<a href="https://ibb.co/Y8h6yjV"><img src="https://i.ibb.co/QnMZCmx/PXworkspace.png" alt="PXworkspace" border="0"></a>
 
 Also, we know there are some functions on the Peter Corke toolbox to get the inverse kinematics of a robot. Those functions are part of the class SerialLink so, to use them, we have to define a SerialLink object first. Some of these functions are _ikine_, _ikunk_, _ikcon_ or _ikine6s_ but some of them are used for 6 DoF robots.
 
 The dexterous workspace is where the tool can get, for example, in this Phantom X robot the tool _Approach_ axis will always be aligned with the first motor angle.
+
+The Phantom X robot has 6 soluions, 2 for the first or waist motor, another 2 for the shoulder motor and 2 more for the elbow motor. The wrist motor will only have 1 solution. 
 
 ## How to use this repo
 
