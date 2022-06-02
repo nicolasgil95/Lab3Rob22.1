@@ -39,6 +39,10 @@ This is the __[link](https://youtube.com/shorts/02OXB1aoj3E
 The objective is to implement a Pick And Place application with the Phantom X robot, which consists
 in the following. 
 The robot must take the type 1 piece that is on its right and place it in front.
+#Restrictions:
+
+The paths must be of the pick and place type, that is, rectangular paths, movements
+vertical to go up and down, and horizontal movement to move.
 
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/nf59ZPk/Screenshot-from-2022-06-01-20-59-24.png" alt="Screenshot-from-2022-06-01-20-59-24" border="0"></a>
 
@@ -121,8 +125,6 @@ Additionally, we can watch another position about the tool of work
 
 - - -
 ## Conclusions
-- In this lab we learned how to command the robot joints and get their position using both, python and matlab.
+- In the first video, it is observed that the robot picks up part number two perfectly, but at the end of the route when it has to drop it, it tends to have problems.
+- 
 
-- The python script can be upgraded so we get the current position of the joints and let the joint move gradualy from that position.
-
-- Be careful when starting the robot's motors, as this can be dangerous.
