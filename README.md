@@ -13,7 +13,7 @@ Also, we know there are some functions on the Peter Corke toolbox to get the inv
 
 The dexterous workspace is where the tool can get, for example, in this Phantom X robot the tool _Approach_ axis will always be aligned with the first motor angle.
 
-The Phantom X robot has 6 soluions, 2 for the first or waist motor, another 2 for the shoulder motor and 2 more for the elbow motor. The wrist motor will only have 1 solution. 
+The Phantom X robot has 4 soluions, 2 for the first or waist motor, and another 2 for the shoulder-elbow motors . The wrist motor will only have 1 solution. 
 
 ## How to use this repo
 
