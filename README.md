@@ -118,6 +118,8 @@ Once the axis and distance are defined, we add the distance value in the corresp
 ---
 
 ## Conclusions
+- The results of our inverse kinematics function depends on the model we made of the robot, so, as there could be some error on the lenghts of each link the function won't give the correct angles for the actual robot.
 - In the first video, it is observed that the robot picks up part number two perfectly, but at the end of the route when it has to drop it, it tends to have problems.
 - In the second video, it is observed that the robot cannot throw part number two, since the diameter of this part is greater than the limit diameter that the robot tool reaches
+- While writing this file we realiced that, for straight moves on any axis the tool MTH have to suffer a rotation as it will always be aligned to the waist motor position, luckly, for our small test movements it didn't seem to disturb but for bigger moves it should. 
 
