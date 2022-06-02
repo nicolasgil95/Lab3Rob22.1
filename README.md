@@ -2,13 +2,16 @@
 By: Jhon Brandol Muñoz Romero and Nicolas Gil Rojas
 
 ## Abstract
-
+In this lab we learn and use inverse kinematics to move the Phantom X robot doing a simple pick and place application and some workspace moves. 
 - - - 
 ##  Workspace of the robot
 To get and know the workspace of the robot we used forward kinematics giving us a 2D view of many reachable points by the robot.
 
-<a href="https://ibb.co/sVgrZWY"><img src="https://i.ibb.co/BCfR9nM/Workspace.png" alt="Workspace" border="0"></a>
+<a href="https://ibb.co/6DW5vbQ"><img src="https://i.ibb.co/7r1FgVh/Workspace.png" alt="Workspace" border="0"></a>
 
+Also, we know there are some functions on the Peter Corke toolbox to get the inverse kinematics of a robot. Those functions are part of the class SerialLink so, to use them, we have to define a SerialLink object first. Some of these functions are _ikine_, _ikunk_, _ikcon_ or _ikine6s_ but some of them are used for 6 DoF robots.
+
+The dexterous workspace is where the tool can get, for example, in this Phantom X robot the tool _Approach_ axis will always be aligned with the first motor angle.
 
 ## How to use this repo
 Clone this repo onto your Catkin workspace. Also is needed Matlab with dynamixel messages.
@@ -27,7 +30,9 @@ After this is done and with no errors showed you will be ready to run de scripts
 
 On the scripts folder there will be a python script named _PickNDrop.py_ and .
 
-# Python Script
+# Pick and Place Script
+
+<a href="https://ibb.co/m4N3b89"><img src="https://i.ibb.co/VTwsJmg/FramePos.png" alt="FramePos" border="0"></a>
 
 The python script can be run using the following commands, on one terminal run:
 
