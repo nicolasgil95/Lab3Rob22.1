@@ -113,6 +113,10 @@ This script uses the same function to get the inverse kinematics of the robot, a
 
 Once the axis and distance are defined, we add the distance value in the corresponding axis to the MTH of the current pose calculated previously. With the start and end pose MTHs is used the toolbox _ctraj_ function to get the intermediate pose MTHs, this arrays are calculated every 0.5 cm. This new MTHs will be the input for our inverse kinematics *inv_kin* function. Knowing the joint values for each step we send them to the motors.
 
+In the image you can see the output of the script, where it gets the current MTH and then ask for the axis of movement and the distance to move, the prints the destination MTH and starts to execute the movements on the robot. 
+
+<a href="https://ibb.co/Y8h6yjV"><img src="https://i.ibb.co/QnMZCmx/PXworkspace.png" alt="PXworkspace" border="0"></a><a href="https://ibb.co/VDxbbkv"><img src="https://i.ibb.co/d6tXXHQ/KeyMove.png" alt="KeyMove" border="0"></a>
+
 [Here](https://www.youtube.com/watch?v=9BKicWuFVmo) you can see the results of the script run. 
 
 ---
