@@ -50,7 +50,7 @@ To begin with, the calculations are made to locate the homogeneous transformatio
 <a href="https://ibb.co/m4N3b89"><img src="https://i.ibb.co/VTwsJmg/FramePos.png" alt="FramePos" border="0"></a>
 
 Then, the trajectory is plotted with the function `rtb.jtraj(T0, T1, 50)`
-
+where T0 and T1 are vectors of the first position that the robot performs, these measurements are in radians for each joint of the robot, which is obtained by entering the MTH in the function that calculates the inverse kinematics of the robot.
 
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/bFGKf2f/Screenshot-from-2022-06-01-21-54-46.png" alt="Screenshot-from-2022-06-01-21-54-46" border="0"></a>
 
