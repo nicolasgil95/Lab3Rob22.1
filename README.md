@@ -88,6 +88,9 @@ Again, after running this script the terminal will be bugged and won't show any 
 - - -
 
 ### ROS - Pick and place application:
+This is the __[link](https://youtube.com/shorts/pO0-6QPsQTQ)__ to watch the first video:
+This is the __[link](https://youtube.com/shorts/02OXB1aoj3E
+)__ to watch the first video:
 The objective is to implement a Pick And Place application with the Phantom X robot, which consists
 in the following. 
 The robot must take the type 1 piece that is on its right and place it in front.
