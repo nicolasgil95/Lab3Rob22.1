@@ -55,7 +55,10 @@ Then, the trajectory is plotted with the function `rtb.jtraj(T0, T1, 50)`
 where T0 and T1 are vectors of the first position that the robot performs, these measurements are in radians for each joint of the robot, which is obtained by entering the MTH in the function that calculates the inverse kinematics of the robot.
 
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/bFGKf2f/Screenshot-from-2022-06-01-21-54-46.png" alt="Screenshot-from-2022-06-01-21-54-46" border="0"></a>
+
 In the following image, you can see the Homogeneous Transformation Matrices for each point of the robot path.
+
+
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/ysqRqcG/Screenshot-from-2022-06-01-22-50-36.png" alt="Screenshot-from-2022-06-01-22-50-36" border="0"></a>
 
 
